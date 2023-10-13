@@ -1,0 +1,8 @@
+file_format: "1"
+id: bat45
+name: BAT45
+type: shield
+url: https://github.com/qxx2094/bat-45/
+requires: [pro_micro]
+features:
+  - keys
