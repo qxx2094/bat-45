@@ -1,5 +1,50 @@
 /*
+ * Copyright (c) 2021 The ZMK Contributors
+ *
  * SPDX-License-Identifier: MIT
+ * &bt BT_CLR 当电脑上删除蓝牙设备时，键盘对应设备信息未删除，导致不能使用
+ * 此时切换到配对蓝牙比如&bt BT_SEL0,切换到该设备然后按下&bt BT_CLR使BT_SEL0重新配对信息才能使用
+ * &bootloader 进入bl的软按键
+ * &bt BT_NXT  切换下一个配对
+ * &bt BT_PRV  切换上一个配对
  */
 
-#include "../../../bat45.keymap"
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define LOWER 1
+#define RAISE 2
+
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+&kp ESC      &kp Q     &kp W     &kp E     &kp R     &kp T            &kp Y     &kp U     &kp I     &kp O    &kp P       &kp MINUS
+&kp TAB      &kp A     &kp S     &kp D     &kp F     &kp G            &kp H     &kp J     &kp K     &kp L                &kp RSHFT
+&kp LCTRL    &kp Z     &kp X     &kp C     &kp V     &kp B            &kp N     &kp M     &kp COMMA &kp DOT  &kp FSLH    &kp RCTRL
+&kp LCTRL    &kp LGUI  &mo 1               &kp SPACE                  &kp SPACE           &mo 2              &kp RALT    &kp RALT
+            >;
+        };
+        lower_layer {
+            bindings = <
+&kp N1       &kp N2         &kp N3         &kp N4         &kp N5    &kp N6           &kp N7    &kp N8    &kp N9    &kp N0    &trans    &trans
+&bt BT_CLR   &bt BT_SEL0    &bt BT_SEL1    &bt BT_SEL2    &trans    &trans           &trans    &trans    &trans    &trans              &trans
+&bootloader  &trans         &trans         &trans         &trans    &trans           &trans    &trans    &trans    &trans    &trans    &trans
+&bt BT_NXT   &bt BT_PRV     &trans                       &trans                     &trans              &trans              &trans    &trans
+            >;
+        };
+        raise_layer {
+            bindings = <
+&kp F1       &kp F2    &kp F3    &kp F4    &kp F5    &kp F6           &kp F7    &kp F8    &kp F9    &kp F10    &kp F11    &kp F12
+&trans       &trans    &trans    &trans    &trans    &trans           &trans    &trans    &trans    &trans                &trans
+&trans       &trans    &trans    &trans    &trans    &trans           &trans    &trans    &trans    &trans     &trans     &trans
+&trans       &trans    &trans              &trans                     &trans              &trans               &trans     &trans
+            >;
+        };
+    };
+};
